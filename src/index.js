@@ -1,21 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import { store } from './app/store';
+
+// redux
+import store from './store';
 import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/home.component';
+import Login from './components/login.component';
+import Register from './components/register.component';
+import Profile from './components/profile.component';
+import ProductList from './components/productList.component';
+import ProductOne from './components/productOne.component';
+import ProductCreate from './components/productCreate.component';
+import UserList from './components/userList.component';
+import UserOne from './components/userOne.component';
+import UserCreate from './components/userCreate.component';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Router>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+            <Route path="login" exact element={<Login />} />
+            <Route path="register" exact element={<Register />} />
+            <Route path="profile" exact element={<Profile />} />
+            <Route path="products" exact element={<ProductList />} />
+            <Route path="/products/:productId" exact element={<ProductOne />} />
+            <Route path="/products/create" exact element={<ProductCreate/>} />
+            <Route path="users" exact element={<UserList />} />
+            <Route path="/users/:userId" exact element={<UserOne />} />
+            <Route path="/users/create" exact element={<UserCreate />} />
+          </Route>
+        </Routes>
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
